@@ -42,7 +42,19 @@ namespace Cloo.Bindings
     /// <remarks> See the OpenCL specification for documentation regarding these functions. </remarks>
     [SuppressUnmanagedCodeSecurity]
     public class CL12 : CL11
-    {
+    {        
+        /// <summary>
+        /// Introduced in OpenCL 1.2.
+        /// </summary>
+        [DllImport(libName, EntryPoint = "clCreateImage")]
+        public static extern CLMemoryHandle CreateImage(
+            CLContextHandle context,
+            ComputeMemoryFlags flags,
+            ref ComputeImageFormat imageFormat,
+            ref ComputeImageDescription imageDesc,
+            IntPtr hostPointer,
+            out ComputeErrorCode resultCode);
+
         /// <summary>
         /// See the OpenCL specification.
         /// </summary>
