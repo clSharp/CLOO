@@ -43,7 +43,7 @@ namespace Cloo
     /// <remarks> A memory object that stores a two- or three- dimensional structured array. Image data can only be accessed with read and write functions. The read functions use a sampler. </remarks>
     /// <seealso cref="ComputeMemory"/>
     /// <seealso cref="ComputeSampler"/>
-    public abstract class ComputeImage : ComputeMemory
+    public class ComputeImage : ComputeMemory
     {
         #region Properties
 
@@ -86,6 +86,13 @@ namespace Cloo
         #endregion
 
         #region Constructors
+        public ComputeImage(ComputeContext context, ComputeMemoryFlags flags, ComputeImageFormat format, ComputeImageDescription desc, IntPtr data) : base(context, flags)
+        {
+            Handle = CL12.CreateImage(context.Handle, flags, ref format, ref desc, data, out ComputeErrorCode error);
+            ComputeException.ThrowOnError(error);
+
+            Init();
+        }
 
         /// <summary>
         /// 
